@@ -16,9 +16,27 @@ end
 Usb.println "SD & WiFi Ready"
 
 #-------
-#ボディを取り出します
+#urlのてデータを取得します
 #-------
-def getBody(bodyname, tmpname)
+def getWiFi(tmpname, url )
+  WiFi.disconnect
+  WiFi.setMode 3  #Station-Mode & SoftAPI-Mode
+  WiFi.connect("TAROSAY","37000")
+  #WiFi.connect("000740DE0D79","")
+  WiFi.multiConnect 1
+  if(WiFi.httpGetSD(tmpname, url) != 1)then
+      WiFi.disconnect
+      return false
+  end
+  WiFi.disconnect
+  return true
+end
+
+#-------
+#ボディを取り出します
+#ボディの最初の1行を返します
+#-------
+def getBody(filename, tmpname)
   SD.open(0, tmpname, 0)
   c = SD.read(0)
   crlf = 0
@@ -34,36 +52,58 @@ def getBody(bodyname, tmpname)
     c = SD.read(0)
   end
   
-  SD.open(1, bodyname, 2)
+  body = ""
+  crlf = 0
+
+  SD.open(1, filename, 2)
+  c = SD.read(0)
   while(c >= 0)do
-    Usb.write(c.chr, 2)
+    #Usb.write(c.chr, 1)
     SD.write(1, c.chr, 1)
+    
+    if(c == 0xd || c == 0xa)then
+      crlf = 1
+    end
+    
+    if(crlf == 0)then
+      body += c.chr
+    end
+    
     c = SD.read(0)
   end
   SD.close(1)
   SD.close(0)
+  return body
 end
 
 #-----------------------------------------
 Usb.println("System Start")
 
-WiFi.disconnect
-WiFi.setMode 3  #Station-Mode & SoftAPI-Mode
-WiFi.connect("TAROSAY","37000")
-#WiFi.connect("000740DE0D79","")
-WiFi.multiConnect 1
-
-Usb.println "HTTP GET Start"
-res = WiFi.httpGetSD("geturl.tmp","tarosay.github.io/iotdl/data/geturl.txt")
-#res = WiFi.httpGetSD("geturl.tmp","tarosay.github.io/iotdl/data/main.mrb")
-WiFi.disconnect
-
-if(res != 1)then
+#読み込むmrbファイルのあるURLを取得します
+res = getWiFi("wifi.tmp", "tarosay.github.io/iotdl/data/geturl.txt")
+if( !res )then
   Usb.println "Failed."
-  #自分をリセットします
-  System.reset
-  System.exit
+  System.reset    #自分をリセットします
 end
 
-#取得するmrbファイルのURLを取り出します    
-getBody("geturl.txt", "geturl.tmp")
+body = getBody("geturl.txt", "wifi.tmp")
+
+#mrbファイル名を取得します
+mrbname = body[body.rindex("/") + 1..body.size]
+
+#mrbファイルを取得します
+res = getWiFi("wifi.tmp", body)
+if( !res )then
+  Usb.println "Failed."
+  System.reset    #自分をリセットします
+end
+
+Usb.println body[body.rindex("/") + 1..body.size]
+
+if(mrbname.size == 0)then
+  Usb.println "Failed."
+  System.reset    #自分をリセットします
+end
+
+getBody(mrbname, "wifi.tmp")  #mrbファイルを取り出します
+

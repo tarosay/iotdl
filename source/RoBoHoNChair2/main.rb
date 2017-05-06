@@ -1,13 +1,14 @@
 #!mruby
 #Ver.2.27
 #TB6612FNG L-L->STOP. L-H->CCW, H-L->CW, H-H->ShortBrake
-MaxVero = 80        #モータ速度速度の最大値を指定しています。0～255
-MaxRotVero = 80     #モータ速度速度の最大値を指定しています。0～255
+MaxVero = 150        #モータ速度速度の最大値を指定しています。0～255
+MaxRotVero = 100     #モータ速度速度の最大値を指定しています。0～255
 MoveTime = 450      #500msWaitさせたかったので用意している。
 Vero = [4,10]       #モータの速度を決定するGR-CITRUSのピンが4番と10番です。     
 Num = [18,3,15,14]  #モータの回転方向などを制御するビット、1モータ2ビットです。18,3番、15と14番がペアです
-Sens = 17            #アナログ距離センサ
+Sens = 17           #アナログ距離センサ
 Lev = [0,16]        #ロボホンロボホンのレバー
+WiFiEN = 5          #WiFiのEN:LOWでDisableです
 
 Usb = Serial.new(0)
 for i in Num do
@@ -16,7 +17,11 @@ end
 for i in Lev do
     pinMode(i, 2) #プルアップ
 end
+pinMode(WiFiEN, OUTPUT)
 
+#WiFiをDisableにします
+digitalWrite(WiFiEN, LOW)
+    
 #-------
 # レバー状態状態を取得します
 #-------
@@ -112,6 +117,24 @@ end
 
 Usb.println("System Start")
 
+1.times do
+    mRight 5000
+    #delay 400
+end
+
+1.times do
+    mLeft 5000
+    #delay 400
+end
+mMae
+delay 2500
+mStop
+mUshiro
+delay 2500
+mStop
+System.exit
+
+
 lvr0 = 0
 lvr1 = 0
 cnt = 0
@@ -150,21 +173,6 @@ System.exit
 #mStop
 #System.exit
 
-10.times do
-    mRight 300
-    delay 400
-end
-
-10.times do
-    mLeft 300
-    delay 400
-end
-mMae
-delay 250
-mStop
-mUshiro
-delay 250
-mStop
 
 #100.times do
 #    len = analogRead(Sens)

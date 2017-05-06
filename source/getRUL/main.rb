@@ -76,6 +76,20 @@ def getBody(filename, tmpname)
   return body
 end
 
+#-------
+#Memにコピーします
+#-------
+def copyMem(src, dst)
+  SD.open(0, src, 0)
+  MemFile.open(0, dst, 2)
+  c = SD.read(0)
+  while(c >= 0)do
+    MemFile.write(0, c.chr, 1 )
+    c = SD.read(0)
+  end
+  MemFile.close(0)
+  SD.close(0)
+end
 #-----------------------------------------
 Usb.println("System Start")
 
@@ -98,12 +112,19 @@ if( !res )then
   System.reset    #自分をリセットします
 end
 
-Usb.println body[body.rindex("/") + 1..body.size]
-
 if(mrbname.size == 0)then
   Usb.println "Failed."
   System.reset    #自分をリセットします
 end
 
+Usb.println mrbname
 getBody(mrbname, "wifi.tmp")  #mrbファイルを取り出します
+
+copyMem(mrbname, mrbname) #Memにコピーします
+
+#実行します
+System.setrun mrbname
+
+
+
 

@@ -10,9 +10,6 @@ Sens = 17           #アナログ距離センサ
 Lev = [1,16]        #ロボホンロボホンのレバー
 WiFiEN = 5          #WiFiのEN:LOWでDisableです
 
-#chaircar.mrbをmain.mrbに上書きコピーします
-#MemFile.cp('chaircar.mrb', 'main.mrb', 1)
-
 Usb = Serial.new(0)
 for i in Num do
   pinMode(i,OUTPUT)

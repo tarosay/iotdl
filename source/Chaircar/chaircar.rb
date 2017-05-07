@@ -10,6 +10,9 @@ Sens = 17           #アナログ距離センサ
 Lev = [1,16]        #ロボホンロボホンのレバー
 WiFiEN = 5          #WiFiのEN:LOWでDisableです
 
+#chaircar.mrbをmain.mrbに上書きコピーします
+#MemFile.cp('chaircar.mrb', 'main.mrb', 1)
+
 Usb = Serial.new(0)
 for i in Num do
   pinMode(i,OUTPUT)
@@ -122,6 +125,14 @@ if(lever == 3)then System.exit end
 
 Usb.println("System Start")
 
+#100.times do
+#    len = analogRead(Sens)
+#    Usb.println len.to_s
+#    delay 500
+#end
+#System.exit
+
+ss = false
 mv = false
 lvr0 = 0
 lvr1 = 0
@@ -134,24 +145,40 @@ while true do
   if cnt == 3 then
     if(lvr1 == 1)then
       mStop
-      mLeft 0
+      mLeft 1450
       mv = true
+      ss = false
     elsif(lvr1 == 2)then
       mStop
-      mRight 0
+      mRight 1150
       mv = true
+      ss = false
     elsif(lvr1 == 3)then
       if(mv == false)then
-        System.setrun "wifiload.mrb"
-        System.exit
+        if(ss == true)then
+          System.setrun "wifiload.mrb"
+          System.exit    
+        end
+        mMae
+        mv = true
+        ss = false
+      else
+        mStop
+        mv = false
+        ss = false
       end
-      mStop
-      mv = false
     end
   end
   lvr1 = lvr0
   
-  5.times do delay 50 end
+  5.times do
+    delay 50
+    if(analogRead(Sens) > 450)then
+      mStop
+      mv = false
+      ss = true
+    end
+  end
 
   if lvr0 > 0 then
     if cnt > 6 then break end

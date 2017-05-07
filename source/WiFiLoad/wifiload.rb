@@ -15,18 +15,6 @@ digitalWrite(WiFiEN, HIGH)   #HIGH:Enable
 
 Usb = Serial.new(0,115200)
 
-#if(System.use?("WiFi") == false)then
-#  Usb.println "WiFi Card can't use."
-#  System.exit() 
-#end
-#Usb.println "WiFi Ready"
-
-#if(System.use?("MP3",Lev) == false)then
-#  Usb.println "MP3 can't use."
-#  System.exit() 
-#end
-#Usb.println "MP3 Ready"
-
 if(!System.use?('WiFi') || !System.use?('MP3', Lev))then
     Usb.println "SD Card or WiFi or MP3 can't use."
    System.exit() 
@@ -149,9 +137,7 @@ Usb.println mrbname
 MP3.play "dlsccess.mp3"
 
 getBody(mrbname, "wifi.tmp")  #mrbファイルを取り出します
-Usb.println mrbname
 copyMem(mrbname, "main.mrb")  #Memにコピーします
-Usb.println mrbname
 
 #実行します
 #System.setrun mrbname

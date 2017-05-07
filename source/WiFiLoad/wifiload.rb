@@ -79,7 +79,7 @@ def getBody(filename, tmpname)
     #Usb.write(c.chr, 1)
     SD.write(1, c.chr, 1)
     
-    if(c == 0xd || c == 0xa)then
+    if(c == 0xd || c == 0xa || body.size > 64)then
       crlf = 1
     end
     
@@ -146,10 +146,12 @@ if(mrbname.size == 0)then
 end
 
 Usb.println mrbname
-getBody(mrbname, "wifi.tmp")  #mrbファイルを取り出します
-
-copyMem(mrbname, "main.mrb") #Memにコピーします
 MP3.play "dlsccess.mp3"
+
+getBody(mrbname, "wifi.tmp")  #mrbファイルを取り出します
+Usb.println mrbname
+copyMem(mrbname, "main.mrb")  #Memにコピーします
+Usb.println mrbname
 
 #実行します
 #System.setrun mrbname

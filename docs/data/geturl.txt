@@ -1,2 +1,4 @@
 tarosay.github.io/iotdl/data/mp3play.mrb
 tarosay.github.io/iotdl/data/chairrol.mrb
+tarosay.github.io/iotdl/data/wifiload.mrb
+tarosay.github.io/iotdl/data/ryoute.mp3

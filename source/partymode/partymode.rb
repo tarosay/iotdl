@@ -130,7 +130,7 @@ cnt = 0
 k = 241
 while true do
   lvr0 = lever
-  Usb.println lvr0.to_s + "," + cnt.to_s + "," + k.to_s
+  #Usb.println lvr0.to_s + "," + cnt.to_s + "," + k.to_s
   
   if(k > 240)then
     tm = random(1,5)
@@ -152,11 +152,9 @@ while true do
       mStop
       mRight 900
     elsif(lvr1 == 3)then
-      if(mv == false)then
-        mStop
-        System.setrun "wifiload.mrb"
-        System.exit    
-      end
+      mStop
+      System.setrun "wifiload.mrb"
+      System.exit    
     end
   end
   lvr1 = lvr0

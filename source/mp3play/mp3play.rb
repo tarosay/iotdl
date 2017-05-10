@@ -27,7 +27,7 @@ def lever()
 end
 
 MP3.led 1
-i = 13
+i = 0
 while(true)do
   n = '0'+i.to_s
   MP3.play "music/" + n[n.size-2..n.size] + '.mp3'

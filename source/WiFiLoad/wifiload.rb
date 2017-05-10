@@ -136,8 +136,10 @@ end
 Usb.println mrbname
 MP3.play "dlsccess.mp3"
 
-getBody(mrbname, "wifi.tmp")  #mrbファイルを取り出します
-copyMem(mrbname, "main.mrb")  #Memにコピーします
+#getBody(mrbname, "wifi.tmp")  #mrbファイルを取り出します
+getBody('main.mrb', "wifi.tmp")  #mrbファイルを取り出します
+#copyMem(mrbname, "main.mrb")  #Memにコピーします
+copyMem('main.mrb', "main.mrb")  #Memにコピーします
 
 #実行します
 #System.setrun mrbname

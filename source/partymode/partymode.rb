@@ -122,24 +122,35 @@ if(lever == 3)then System.exit end
 
 Usb.println("System Start")
 
-mv = false
+mStop
+randomSeed(micros())
 lvr0 = 0
 lvr1 = 0
 cnt = 0
-k = 0
+k = 241
 while true do
   lvr0 = lever
-  Usb.println lvr0.to_s + "," + cnt.to_s
-
+  Usb.println lvr0.to_s + "," + cnt.to_s + "," + k.to_s
+  
+  if(k > 240)then
+    tm = random(1,5)
+    rot = random(2)
+    k = 0
+    mStop
+    if(rot == 0)then
+        mRight tm * 900
+    else
+        mLeft tm * 900
+    end
+  end
+  
   if cnt == 3 then
     if(lvr1 == 1)then
       mStop
       mLeft 900
-      mv = true
     elsif(lvr1 == 2)then
       mStop
       mRight 900
-      mv = true
     elsif(lvr1 == 3)then
       if(mv == false)then
         mStop
@@ -160,8 +171,8 @@ while true do
   else
     cnt = 0
   end
-  led k
-  k = 1 - k
+  led k % 2
+  k += 1
 end
 
 mStop

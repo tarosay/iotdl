@@ -32,8 +32,8 @@ while(true)do
   n = '0'+i.to_s
   MP3.play "music/" + n[n.size-2..n.size] + '.mp3'
   i += 1
-  if(i > 19)then
-      i = 1
+  if(i > 20)then
+      i = 0
   end
 
   if(lever() == 3)then

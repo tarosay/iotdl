@@ -83,21 +83,6 @@ def getBody(filename, tmpname)
 end
 
 #-------
-#Memにコピーします
-#-------
-def copyMem(src, dst)
-  SD.open(0, src, 0)
-  MemFile.open(0, dst, 2)
-  c = SD.read(0)
-  while(c >= 0)do
-    MemFile.write(0, c.chr, 1 )
-    c = SD.read(0)
-  end
-  MemFile.close(0)
-  SD.close(0)
-end
-
-#-------
 #ダウンロードに失敗したときの処理
 #-------
 def dlfalse()
@@ -138,8 +123,8 @@ MP3.play "dlsccess.mp3"
 
 #getBody(mrbname, "wifi.tmp")  #mrbファイルを取り出します
 getBody('main.mrb', "wifi.tmp")  #mrbファイルを取り出します
-#copyMem(mrbname, "main.mrb")  #Memにコピーします
-copyMem('main.mrb', "main.mrb")  #Memにコピーします
+
+MemFile.rm 'main.mrb'
 
 #実行します
 #System.setrun mrbname

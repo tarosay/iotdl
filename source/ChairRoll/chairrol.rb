@@ -151,7 +151,7 @@ while true do
   end
   lvr1 = lvr0
   
-  5.times do delay 50 end
+  5.times do delay 40 end
 
   if lvr0 > 0 then
     if cnt > 6 then break end

@@ -119,7 +119,7 @@ while true do
   5.times do
     delay 50
     #Usb.println analogRead(Sens).to_s
-    if(analogRead(Sens) > 475)then
+    if(analogRead(Sens) > 450)then
       #ランダムで右か左回転する
       ro = random(2)
       if ro == 0 then

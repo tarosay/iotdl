@@ -60,6 +60,20 @@ def mstart()
     pwm(Vero[0], p)
     pwm(Vero[1], p)
     p += 1
+    if(analogRead(Sens) > 420)then
+      #ランダムで右か左回転する
+      ro = random(2)
+      if ro == 0 then
+        Usb.println "Left Rotation"
+        rot(HIGH, LOW, RotPm)
+      else
+        Usb.println "Right Rotation"
+        rot(LOW, HIGH, RotPm)
+      end
+      mstop
+      mvFlg = false
+      return
+    end
   end
 end
 #-------

@@ -97,6 +97,7 @@ randomSeed(micros)
 cons = [0,0,0,0] #front,left,right,break
 cnt = 0
 mstart
+mvFlg = true
 while true do
   lvr = lever
   Usb.println lvr.to_s
@@ -119,7 +120,7 @@ while true do
   5.times do
     delay 50
     #Usb.println analogRead(Sens).to_s
-    if(analogRead(Sens) > 470)then
+    if(analogRead(Sens) > 450)then
       #ランダムで右か左回転する
       ro = random(2)
       if ro == 0 then
@@ -130,8 +131,12 @@ while true do
         rot(LOW, HIGH, RotPm)
       end
       mstop
+      mvFlg = false
     else
-      mstart
+      if mvFlg == false then
+        mstart
+        mvFlg = true
+      end
     end
   end
 

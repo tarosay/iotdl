@@ -130,7 +130,7 @@ cnt = 0
 k = 241
 while true do
   lvr0 = lever
-  #Usb.println lvr0.to_s + "," + cnt.to_s + "," + k.to_s
+  Usb.println lvr0.to_s + "," + cnt.to_s + "," + k.to_s
   
   if(k > 180)then
     tm = random(1,5)

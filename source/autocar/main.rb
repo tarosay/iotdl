@@ -3,13 +3,17 @@
 #TB6612FNG L-L->STOP. L-H->CCW, H-L->CW, H-H->ShortBrake
 MaxVero = 150        #モータ速度速度の最大値を指定しています。0～255
 RotVero = 120
-Rottime = 800
+Rottime = 3
+
+00
 RotPm = [RotVero, Rottime]
 Vero = [4,10]       #モータの速度を決定するGR-CITRUSのピンが4番と10番です。
 Num = [18,3,15,14]  #モータの回転方向などを制御するビット、1モータ2ビットです。18,3番、15と14番がペアです
 Sens = 17           #アナログ距離センサ
 Lev = [1,16]        #ロボホンロボホンのレバー
 WiFiEN = 5          #WiFiのEN:LOWでDisableです
+MvFlg = false
+randomSeed(micros)
 
 Usb = Serial.new(0)
 for i in Num do
@@ -60,7 +64,7 @@ def mstart()
     pwm(Vero[0], p)
     pwm(Vero[1], p)
     p += 1
-    if(analogRead(Sens) > 420)then
+    if(analogRead(Sens) > 450)then
       #ランダムで右か左回転する
       ro = random(2)
       if ro == 0 then
@@ -71,7 +75,7 @@ def mstart()
         rot(LOW, HIGH, RotPm)
       end
       mstop
-      mvFlg = false
+      MvFlg = false
       return
     end
   end
@@ -145,11 +149,11 @@ while true do
         rot(LOW, HIGH, RotPm)
       end
       mstop
-      mvFlg = false
+      MvFlg = false
     else
-      if mvFlg == false then
+      if MvFlg == false then
+        MvFlg = true
         mstart
-        mvFlg = true
       end
     end
   end

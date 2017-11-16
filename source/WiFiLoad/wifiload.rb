@@ -1,6 +1,6 @@
 #!mruby
-#GR-CITRUS Version 2.28
-Lev = [1,16]        #ロボホンロボホンのレバー
+#GR-CITRUS Version 2.35
+Lev = [1,16]
 WiFiEN = 5          #WiFiのEN:LOWでDisableです
 
 for i in Lev do
@@ -12,15 +12,14 @@ pinMode(WiFiEN, OUTPUT)
 digitalWrite(WiFiEN, LOW)   #LOW:Disable
 delay 500
 digitalWrite(WiFiEN, HIGH)   #HIGH:Enable
-
+delay 500
 Usb = Serial.new(0,115200)
 
 if(!System.use?('WiFi') || !System.use?('MP3', Lev))then
-    Usb.println "SD Card or WiFi or MP3 can't use."
-   System.exit() 
+  Usb.println "SD Card or WiFi or MP3 can't use."
+  System.exit() 
 end
 Usb.println "WiFi MP3 Ready"
-
 
 #-------
 #urlのデータを取得します
@@ -127,5 +126,6 @@ getBody('main.mrb', "wifi.tmp")  #mrbファイルを取り出します
 MemFile.rm 'main.mrb'
 
 #実行します
-#System.setrun mrbname
-System.reset
+Usb.println mrbname + " を実行します"
+System.setrun mrbname
+#System.reset

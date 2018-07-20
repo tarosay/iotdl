@@ -1,3 +1,5 @@
+tarosay.github.io/iotdl/data/ntp.mrb
+tarosay.github.io/iotdl/data/mp3play2.mrb
 tarosay.github.io/iotdl/data/led500ms.mrb
 tarosay.github.io/iotdl/data/partymode.mrb
 tarosay.github.io/iotdl/data/autocar.mrb

@@ -3,6 +3,25 @@
     <meta charset="UTF-8">
     <title>テストのページ</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+      body,html{
+        margin: 0;
+        padding: 0;
+      }
+      .img{
+        position: relative;
+        background-image: url(eyes.jpg);
+        background-position: center;
+        background-size: cover;
+        width: 100%;
+        height: 100vh;
+      }
+      .img::before{
+        content: '';
+        display: block;
+        padding-top: 50%;
+      }
+    </style>
   </head>
   <body>
   <div class="img">

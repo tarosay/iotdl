@@ -32,9 +32,11 @@
       function updateImage() {
         if(newImage.complete) {
           newImage.src = "eye.jpg";
+          console.log("1");
         }
-        setInterval(updateImage, 1000);
-      }
+        setTimeout(updateImage, 1000);
+      }      
+      updateImage();
     </script>
   </body>
 </html>

@@ -29,10 +29,14 @@
     <script>
       var newImage = document.getElementsByTagName("img")[0];
       newImage.src = "eyes.jpg";
+      var imgs={"eyes.jpg","eyes2.jpg"};
+      var a = 0;
       function updateImage() {
         if(newImage.complete) {
-          newImage.src = "eyes.jpg";
-          console.log("1");
+          //newImage.src = "eyes.jpg";
+          newImage.src = imgs[a];
+          a = 1 - a;
+          console.log(a);
         }
         setTimeout(updateImage, 1000);
       }      

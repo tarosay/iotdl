@@ -23,7 +23,18 @@
     </style>
   </head>
   <body>
-  <div class="img">
-  </div>
+    <img src="eye.jpg"/>
+    <!-- div class="img"></div -->
+
+    <script>
+      var newImage = document.getElementsByTagName("img")[0];
+      newImage.src = "eye.jpg";
+      function updateImage() {
+        if(newImage.complete) {
+          newImage.src = "eye.jpg";
+        }
+        setInterval(updateImage, 1000);
+      }
+    </script>
   </body>
 </html>

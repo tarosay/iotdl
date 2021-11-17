@@ -29,7 +29,10 @@
     <script>
       var newImage = document.getElementsByTagName("img")[0];
       newImage.src = "eyes.jpg";
-      var imgs={0:'eyes.jpg',1:'eyes2.jpg'};
+      var imgs = {};
+      imgs[0] = 'eyes.jpg';
+      imgs[1] = 'eyes2.jpg';
+
       var a = 0;
       function updateImage() {
         if(newImage.complete) {
